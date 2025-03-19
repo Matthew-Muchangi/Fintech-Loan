@@ -66,4 +66,10 @@
     display: block;
     margin-top: 20px;
   }
+  .action-buttons {
+    display: flex;
+    gap: 8px; /* Adjust space between buttons */
+    align-items: center;
+  }
+  
   
