@@ -11,7 +11,7 @@
               <mat-label>Select Customer</mat-label>
               <mat-select formControlName="customerId">
                 <mat-option *ngFor="let customer of customers" [value]="customer.id">
-                  {{ customer.fullName }}
+                  {{ customer.fullName }}({{customer.id}})
                 </mat-option>
               </mat-select>
             </mat-form-field>
