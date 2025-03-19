@@ -1,0 +1,54 @@
+<div class="container">
+    <h2>Customer Management</h2>
+  
+    <!-- Customer Form -->
+    <form [formGroup]="customerForm" (ngSubmit)="saveCustomer()">
+      <label>Full Name:</label>
+      <input formControlName="fullName" type="text" required />
+  
+      <label>Email:</label>
+      <input formControlName="email" type="email" required />
+  
+      <label>Phone:</label>
+      <input formControlName="phone" type="text" required />
+  
+      <label>Date of Registration:</label>
+      <input formControlName="dateOfRegistration" type="date" required />
+  
+      <label>Customer Type:</label>
+      <select formControlName="customerType">
+        <option value="Regular">Regular</option>
+        <option value="Premium">Premium</option>
+      </select>
+  
+      <button type="submit">{{ editingCustomer ? 'Update' : 'Add' }} Customer</button>
+    </form>
+  
+    <!-- Customers Table -->
+    <table>
+      <thead>
+        <tr>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Date of Registration</th>
+          <th>Customer Type</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let customer of customers">
+          <td>{{ customer.fullName }}</td>
+          <td>{{ customer.email }}</td>
+          <td>{{ customer.phone }}</td>
+          <td>{{ customer.dateOfRegistration }}</td>
+          <td>{{ customer.customerType }}</td>
+          <td>
+            <button (click)="editCustomer(customer)">Edit</button>
+            <button (click)="deleteCustomer(customer.id)">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  
