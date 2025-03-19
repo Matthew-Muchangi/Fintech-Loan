@@ -12,12 +12,18 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
-import { MatIconModule } from '@angular/material/icon';  // ✅ Import this module
+import { MatIconModule } from '@angular/material/icon';
+import { LoanComponent } from './components/loan/loan.component'; 
+import { MatChipsModule } from '@angular/material/chips';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CustomerComponent
+    CustomerComponent,
+    LoanComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +36,11 @@ import { MatIconModule } from '@angular/material/icon';  // ✅ Import this modu
     MatTableModule,
     MatSelectModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatChipsModule,
+    MatSidenavModule,
+    MatToolbarModule,
+    MatListModule
    
   ],
   providers: [],

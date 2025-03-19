@@ -1,0 +1,87 @@
+<div class="loan-container">
+    <!-- Loan Application Form -->
+    <mat-card class="loan-card">
+      <mat-card-header>
+        <mat-card-title>Apply for a Loan</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <form [formGroup]="loanForm" (ngSubmit)="applyLoan()" class="loan-form">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Select Customer</mat-label>
+              <mat-select formControlName="customerId">
+                <mat-option *ngFor="let customer of customers" [value]="customer.id">
+                  {{ customer.fullName }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+  
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Loan Type</mat-label>
+              <input matInput formControlName="loanType" required />
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Loan Amount</mat-label>
+              <input matInput type="number" formControlName="amount" required />
+            </mat-form-field>
+          </div>
+  
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Interest Rate (%)</mat-label>
+              <input matInput type="number" formControlName="interestRate" required />
+            </mat-form-field>
+  
+            <mat-form-field appearance="outline" class="half-width">
+              <mat-label>Duration (Months)</mat-label>
+              <input matInput type="number" formControlName="duration" required />
+            </mat-form-field>
+          </div>
+  
+          <button mat-raised-button color="primary" type="submit" class="submit-btn">Apply Loan</button>
+        </form>
+      </mat-card-content>
+    </mat-card>
+  
+    <!-- Loan Applications Table -->
+    <mat-card class="loan-card">
+      <mat-card-header>
+        <mat-card-title>Loan Applications</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <table mat-table [dataSource]="loans" class="mat-elevation-z8 loan-table">
+  
+          <!-- Customer Column -->
+          <ng-container matColumnDef="customer">
+            <th mat-header-cell *matHeaderCellDef> Customer </th>
+            <td mat-cell *matCellDef="let loan">
+              {{ getCustomerName(loan.customerId) }}
+            </td>
+          </ng-container>
+  
+          <!-- Loan Amount Column -->
+          <ng-container matColumnDef="amount">
+            <th mat-header-cell *matHeaderCellDef> Amount </th>
+            <td mat-cell *matCellDef="let loan"> {{ loan.amount | currency }} </td>
+          </ng-container>
+  
+          <!-- Loan Status Column -->
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef> Status </th>
+            <td mat-cell *matCellDef="let loan">
+              <mat-chip [color]="loan.status === 'Approved' ? 'primary' : loan.status === 'Rejected' ? 'warn' : 'accent'">
+                {{ loan.status }}
+              </mat-chip>
+            </td>
+          </ng-container>
+  
+          <tr mat-header-row *matHeaderRowDef="['customer', 'amount', 'status']"></tr>
+          <tr mat-row *matRowDef="let row; columns: ['customer', 'amount', 'status'];"></tr>
+        </table>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  

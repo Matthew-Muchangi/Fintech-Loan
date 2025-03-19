@@ -1,0 +1,45 @@
+.loan-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    margin: auto;
+  }
+  
+  .loan-card {
+    padding: 20px;
+  }
+  
+  .loan-form {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .form-row {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .half-width {
+    width: 48%;
+  }
+  
+  .submit-btn {
+    margin-top: 16px;
+    width: 100%;
+  }
+  
+  .loan-table {
+    width: 100%;
+    margin-top: 16px;
+  }
+  
+  mat-chip {
+    font-weight: bold;
+  }
+  
