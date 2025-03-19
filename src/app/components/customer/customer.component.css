@@ -1,33 +1,20 @@
-.container {
-    width: 50%;
-    margin: auto;
+.customer-container, .customer-table {
+    margin: 20px auto;
+    max-width: 800px;
   }
   
-  form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 20px;
+  .form-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
   }
   
-  input, select, button {
-    padding: 8px;
-    font-size: 14px;
-  }
-  
-  table {
+  mat-form-field {
     width: 100%;
-    border-collapse: collapse;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
   }
   
   button {
-    cursor: pointer;
-    margin-right: 5px;
+    display: block;
+    margin-top: 20px;
   }
   

@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { CustomerService } from 'src/app/services/customer.service';
-import { Customer } from 'src/app/models/customer.model';
-
 
 @Component({
   selector: 'app-customer',
@@ -10,58 +7,50 @@ import { Customer } from 'src/app/models/customer.model';
   styleUrls: ['./customer.component.css']
 })
 export class CustomerComponent implements OnInit {
-  customerForm: FormGroup;
-  customers: Customer[] = [];
-  editingCustomer: Customer | null = null;
+  customerForm!: FormGroup;
+  customers: any[] = [];
+  displayedColumns: string[] = ['name', 'email', 'phone', 'customerType', 'actions'];
 
-  constructor(private fb: FormBuilder, private customerService: CustomerService) {
+  constructor(private fb: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.initForm();
+    this.loadCustomers();
+  }
+
+  initForm() {
     this.customerForm = this.fb.group({
       fullName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       phone: ['', Validators.required],
-      dateOfRegistration: ['', Validators.required],
-      customerType: ['', Validators.required]
+      customerType: ['', Validators.required],
+      registrationDate: ['', Validators.required]
     });
   }
 
-  ngOnInit(): void {
-    this.loadCustomers();
-  }
-
-  // Load customers from LocalStorage
-  loadCustomers() {
-    this.customers = this.customerService.getCustomers();
-  }
-
-  // Add or update customer
   saveCustomer() {
     if (this.customerForm.valid) {
-      const customerData: Customer = {
-        id: this.editingCustomer ? this.editingCustomer.id : new Date().getTime(),
-        ...this.customerForm.value
-      };
-
-      if (this.editingCustomer) {
-        this.customerService.updateCustomer(customerData);
-        this.editingCustomer = null;
-      } else {
-        this.customerService.addCustomer(customerData);
-      }
-
+      const newCustomer = this.customerForm.value;
+      this.customers.push(newCustomer);
+      localStorage.setItem('customers', JSON.stringify(this.customers));
       this.customerForm.reset();
-      this.loadCustomers();
     }
   }
 
-  // Edit customer
-  editCustomer(customer: Customer) {
-    this.editingCustomer = customer;
-    this.customerForm.patchValue(customer);
+  loadCustomers() {
+    const storedCustomers = localStorage.getItem('customers');
+    if (storedCustomers) {
+      this.customers = JSON.parse(storedCustomers);
+    }
   }
 
-  // Delete customer
-  deleteCustomer(id: number) {
-    this.customerService.deleteCustomer(id);
-    this.loadCustomers();
+  deleteCustomer(customer: any) {
+    this.customers = this.customers.filter(c => c !== customer);
+    localStorage.setItem('customers', JSON.stringify(this.customers));
+  }
+
+  editCustomer(customer: any) {
+    this.customerForm.patchValue(customer);
+    this.deleteCustomer(customer);
   }
 }
